@@ -20,5 +20,24 @@
       "jose": "^3.15.4",
       "uuid": "^8.3.2",
       "axios": "^0.21.1"
+    },
+    "auth0-extension": {
+      "useBabel": false,
+      "useHashName": false,
+      "externals": [
+        "axios@0.21.1",
+        "body-parser@1.12.4",
+        "express@4.17.1",
+        "morgan@1.9.1",
+        "uuid@8.3.2",
+        "webtask-tools",
+        "winston@3.1.0",
+        "jose@3.18.0"
+      ],
+      "excluded": [
+        "safe-eval",
+        "express-conditional-middleware",
+        "pino"
+      ]
     }
   }
