@@ -1,6 +1,6 @@
 {
     "title": "Auth0 Singpass Proxy Extension",
-    "name": "auth0-singpass-proxy-extension",
+    "name": "auth0-singpass-extension",
     "version": "1.0.0",
     "author": "vikasjayaram",
     "useHashName": false,
