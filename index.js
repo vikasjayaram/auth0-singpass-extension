@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/authorize', (req, res) => {
     const context = req.webtaskContext;
     let nonce = crypto.randomBytes(16).toString('base64');
-    let nonce = crypto.randomBytes(16).toString('base64');
     var url = `https://${context.data.AUTH0_CUSTOM_DOMAIN}${req.url}&ndi_state=${req.query.state}&ndi_nonce=${nonce}&singpass=true`;
     res.redirect(url);
 });
