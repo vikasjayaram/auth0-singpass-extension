@@ -1,0 +1,63 @@
+{
+    "title": "Auth0 Singpass Proxy Extension",
+    "name": "auth0-singpass-proxy-extension",
+    "version": "1.0.0",
+    "author": "vikasjayaram",
+    "useHashName": false,
+    "description": "singpass proxy endpoint to support private key jwt / client assertion",
+    "type": "application",
+    "category": "end_user",
+    "logoUrl": "https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png",
+    "initialUrlPath": "/",
+    "keywords": [
+      "auth0",
+      "extension"
+    ],
+    "secrets": {
+      "AUTH0_CUSTOM_DOMAIN": {
+        "description": "YOUR_CUSTOM_DOMAIN",
+        "required": true
+      },
+      "IDP_TOKEN_ENDPOINT": {
+        "description": "Token Endpoint",
+        "example": "https://example.com/token",
+        "required": true
+      },
+      "IDP_ISSUER": {
+        "description": "Issuer",
+        "example": "https://auth0.com/",
+        "required": true
+      },
+      "IDP_SIGNING_ALG": {
+        "description": "Signing Algorithm",
+        "example": "RS256, ES256 etc",
+        "required": true
+      },
+      "IDP_JWKS_ENDPOINT": {
+        "description": "IDP JSON Web Key endpoint",
+        "example":  "https://example.com/.well-known/jwks.json",
+        "required": true
+      },
+      "RELYING_PARTY_JWKS_ENDPOINT": {
+        "description": "Relying Party JSON Web Key",
+        "example": "https://rp.com/.well-known/jwks.json",
+        "required": true
+      },
+      "RELYING_PARTY_PRIVATE_KEY": {
+        "description": "Relying Party Private Key",
+        "required": true
+      },
+      "RELYING_PARTY_KID": {
+        "description": "Relying Party KID",
+        "required": true
+      },
+      "CLIENT_ID": {
+        "description": "Registered Cclient_id",
+        "required": true
+      },
+      "AUDIENCE": {
+        "description": "Audience",
+        "required": true
+      } 
+    }
+  }  
