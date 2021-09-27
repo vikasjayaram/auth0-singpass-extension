@@ -18,22 +18,22 @@
         "description": "YOUR_CUSTOM_DOMAIN",
         "required": true
       },
-      "IDP_TOKEN_ENDPOINT": {
+      "SINGPASS_TOKEN_ENDPOINT": {
         "description": "Token Endpoint",
         "example": "https://example.com/token",
         "required": true
       },
-      "IDP_ISSUER": {
+      "SINGPASS_ISSUER": {
         "description": "Issuer",
         "example": "https://auth0.com/",
         "required": true
       },
-      "IDP_SIGNING_ALG": {
+      "SINGPASS_SIGNING_ALG": {
         "description": "Signing Algorithm",
         "example": "RS256, ES256 etc",
         "required": true
       },
-      "IDP_JWKS_ENDPOINT": {
+      "SINGPASS_JWKS_ENDPOINT": {
         "description": "IDP JSON Web Key endpoint",
         "example":  "https://example.com/.well-known/jwks.json",
         "required": true
@@ -51,11 +51,11 @@
         "description": "Relying Party KID",
         "required": true
       },
-      "CLIENT_ID": {
-        "description": "Registered Cclient_id",
+      "SINGPASS_CLIENT_ID": {
+        "description": "Registered client_id",
         "required": true
       },
-      "AUDIENCE": {
+      "SINGPASS_AUDIENCE": {
         "description": "Audience",
         "required": true
       } 
