@@ -84,7 +84,7 @@ async function loadPrivateKey(config) {
 async function loadPublicKey(config) {
     try {
         const response = await axios.get(config.SINGPASS_JWKS_ENDPOINT);
-        const publicKey = await parseJwk(response.keys[0], config.SINGPASS_SIGNING_ALG);
+        const publicKey = await parseJwk(response.data.keys[0], config.SINGPASS_SIGNING_ALG);
         return publicKey;
     } catch (e) {
         return e;
