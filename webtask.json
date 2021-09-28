@@ -16,26 +16,34 @@
     "secrets": {
       "AUTH0_CUSTOM_DOMAIN": {
         "description": "YOUR_CUSTOM_DOMAIN",
+        "example": "auth.oauth101.net",
         "required": true
       },
       "SINGPASS_TOKEN_ENDPOINT": {
         "description": "Token Endpoint",
-        "example": "https://example.com/token",
+        "example": "https://stg-id.singpass.gov.sg/token",
         "required": true
       },
       "SINGPASS_ISSUER": {
         "description": "Issuer",
-        "example": "https://auth0.com/",
+        "example": "https://stg-id.singpass.gov.sg",
         "required": true
       },
       "SINGPASS_SIGNING_ALG": {
         "description": "Signing Algorithm",
-        "example": "RS256, ES256 etc",
-        "required": true
+        "type": "select",
+        "allowMultiple": false,
+        "default": "true",
+        "options": [
+          {
+            "value": "ES256",
+            "text": "ES256"
+          }
+        ]
       },
       "SINGPASS_JWKS_ENDPOINT": {
         "description": "IDP JSON Web Key endpoint",
-        "example":  "https://example.com/.well-known/jwks.json",
+        "example":  "https://stg-id.singpass.gov.sg/.well-known/keys",
         "required": true
       },
       "RELYING_PARTY_JWKS_ENDPOINT": {
@@ -57,6 +65,7 @@
       },
       "SINGPASS_AUDIENCE": {
         "description": "Audience",
+        "example": "https://stg-id.singpass.gov.sg",
         "required": true
       } 
     }
