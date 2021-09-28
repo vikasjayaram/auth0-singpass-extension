@@ -157,6 +157,7 @@ app.post('/token', async function (req, res) {
         } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error', error.message);
+            return res.status(500).send(error);
         }
     }
 });
