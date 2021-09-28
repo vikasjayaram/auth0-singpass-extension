@@ -20,7 +20,8 @@
         "axios": "^0.21.1",
         "body-parser": "~1.18.2",
         "express": "~4.16.2",
-        "jose": "^3.15.4"
+        "jose": "^3.15.4",
+        "uuid": "8.3.1"
     },
     "devDependencies": {
         "auth0-extensions-cli": "^4.0.4"
@@ -32,7 +33,10 @@
         "axios@0.21.1",
         "body-parser@1.12.4",
         "express@4.17.1",
+        "morgan@1.9.1",
+        "uuid@8.3.1",
         "webtask-tools",
+        "winston@3.1.0",
         "jose@3.18.0"
       ],
       "excluded": [
