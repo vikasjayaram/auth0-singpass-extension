@@ -13,6 +13,17 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/.well-known/openid-configuration', (req, res) => {
+    const wtUrl = url.format({
+        protocol: 'https',
+        host:     req.headers.host,
+        pathname: req.url.split('?').slice(0,1)[0]
+    });
+    res.status(200).send({
+        "authorization_endpoint": `${wtUrl}/authorize`,
+        "token_endpoint": `${wtUrl}/token`
+    });
+});
 app.get('/authorize', (req, res) => {
     const context = req.webtaskContext;
     let nonce = crypto.randomBytes(16).toString('base64');
