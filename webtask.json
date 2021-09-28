@@ -33,7 +33,7 @@
         "description": "Signing Algorithm",
         "type": "select",
         "allowMultiple": false,
-        "default": "true",
+        "default": "ES256",
         "options": [
           {
             "value": "ES256",
