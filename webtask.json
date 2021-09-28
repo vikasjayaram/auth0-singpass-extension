@@ -60,11 +60,11 @@
         "required": true
       },
       "SINGPASS_CLIENT_ID": {
-        "description": "Registered client_id",
+        "description": "Singpass Registered client_id",
         "required": true
       },
       "SINGPASS_AUDIENCE": {
-        "description": "Audience",
+        "description": "Singpass Audience",
         "example": "https://stg-id.singpass.gov.sg",
         "required": true
       } 
