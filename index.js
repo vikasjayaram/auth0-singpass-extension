@@ -6,7 +6,6 @@ const { parseJwk } = require('jose/dist/node/cjs/jwk/parse');
 const { jwtVerify } = require('jose/dist/node/cjs/jwt/verify');
 const crypto = require("crypto");
 const uuid = require("uuid");
-const url = require('url');
 const axios = require("axios").default;
 const qs = require('qs');
 var app = express();
@@ -15,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/.well-known/openid-configuration', (req, res) => {
-    const wtUrl = `https://${req.headers.host}`;
+    const wtUrl = `https://${req.headers.host}/${req.url.split('?').slice(0,1)[0]}`;
     res.status(200).send({
         "authorization_endpoint": `${wtUrl}/authorize`,
         "token_endpoint": `${wtUrl}/token`

@@ -98,16 +98,15 @@ const { parseJwk } = __webpack_require__(30);
 const { jwtVerify } = __webpack_require__(36);
 const crypto = __webpack_require__(10);
 const uuid = __webpack_require__(42);
-const url = __webpack_require__(43);
-const axios = __webpack_require__(44).default;
-const qs = __webpack_require__(45);
+const axios = __webpack_require__(43).default;
+const qs = __webpack_require__(44);
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/.well-known/openid-configuration', (req, res) => {
-    const wtUrl = `https://${req.headers.host}`;
+    const wtUrl = `https://${req.headers.host}/${req.url.split('?').slice(0,1)[0]}`;
     res.status(200).send({
         "authorization_endpoint": `${wtUrl}/authorize`,
         "token_endpoint": `${wtUrl}/token`
@@ -2313,24 +2312,18 @@ module.exports = require("uuid@8.3.1");
 /* 43 */
 /***/ (function(module, exports) {
 
-module.exports = require("url");
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports) {
-
 module.exports = require("axios@0.21.1");
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var stringify = __webpack_require__(46);
-var parse = __webpack_require__(49);
-var formats = __webpack_require__(48);
+var stringify = __webpack_require__(45);
+var parse = __webpack_require__(48);
+var formats = __webpack_require__(47);
 
 module.exports = {
     formats: formats,
@@ -2340,14 +2333,14 @@ module.exports = {
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(47);
-var formats = __webpack_require__(48);
+var utils = __webpack_require__(46);
+var formats = __webpack_require__(47);
 
 var arrayPrefixGenerators = {
     brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
@@ -2557,7 +2550,7 @@ module.exports = function (object, opts) {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2777,7 +2770,7 @@ module.exports = {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2802,13 +2795,13 @@ module.exports = {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(47);
+var utils = __webpack_require__(46);
 
 var has = Object.prototype.hasOwnProperty;
 
