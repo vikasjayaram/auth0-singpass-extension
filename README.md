@@ -1,6 +1,6 @@
-# Auth0 - Singpass Webtask
+# Auth0 - Singpass Extesion
 
-[![Auth0 Extensions](http://cdn.auth0.com/extensions/assets/badge.svg)](https://sandbox.it.auth0.com/api/run/auth0-extensions/extensions-badge?webtask_no_cache=1)
+[![Auth0 Extensions](http://cdn.auth0.com/extensions/assets/badge.svg)]()
 
 This extension will expose endpoints you can use from your custom social connection to support Singpass token endpoint with client-assertion.
 
@@ -33,7 +33,6 @@ Once the webtask has been deployed you will need the following endpoints to comp
 authorizeUrl = 'https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/authorize'
 tokenURL = 'https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/token'
 ```
-> Note: This assumes you use the cluster from Webtask.io, if you use your Auth0 container make sure to call sandbox.it.auth0.com instead of webtask.it.auth0.com
 
 
 ## What is Auth0?
