@@ -1,9 +1,9 @@
 var express = require('express');
 var Webtask = require('webtask-tools');
 var bodyParser = require('body-parser');
-const { SignJWT } = require('jose/jwt/sign');
-const { parseJwk } = require('jose/jwk/parse');
-const { jwtVerify } = require('jose/jwt/verify')
+const { SignJWT } = require('jose/dist/node/cjs/jwt/sign');
+const { parseJwk } = require('jose/dist/node/cjs/jwk/parse');
+const { jwtVerify } = require('jose/dist/node/cjs/jwt/verify');
 const crypto = require("crypto");
 const uuid = require("uuid");
 const axios = require("axios").default;
