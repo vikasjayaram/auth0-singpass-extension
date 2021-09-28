@@ -98,8 +98,9 @@ const { parseJwk } = __webpack_require__(30);
 const { jwtVerify } = __webpack_require__(36);
 const crypto = __webpack_require__(10);
 const uuid = __webpack_require__(42);
-const axios = __webpack_require__(43).default;
-const qs = __webpack_require__(44);
+const url = __webpack_require__(43);
+const axios = __webpack_require__(44).default;
+const qs = __webpack_require__(45);
 var app = express();
 
 app.use(bodyParser.json());
@@ -2316,18 +2317,24 @@ module.exports = require("uuid@8.3.1");
 /* 43 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios@0.21.1");
+module.exports = require("url");
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios@0.21.1");
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var stringify = __webpack_require__(45);
-var parse = __webpack_require__(48);
-var formats = __webpack_require__(47);
+var stringify = __webpack_require__(46);
+var parse = __webpack_require__(49);
+var formats = __webpack_require__(48);
 
 module.exports = {
     formats: formats,
@@ -2337,14 +2344,14 @@ module.exports = {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(46);
-var formats = __webpack_require__(47);
+var utils = __webpack_require__(47);
+var formats = __webpack_require__(48);
 
 var arrayPrefixGenerators = {
     brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
@@ -2554,7 +2561,7 @@ module.exports = function (object, opts) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2774,7 +2781,7 @@ module.exports = {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2799,13 +2806,13 @@ module.exports = {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(46);
+var utils = __webpack_require__(47);
 
 var has = Object.prototype.hasOwnProperty;
 
