@@ -29,6 +29,12 @@ wt create https://github.com/vikasjayaram/auth0-singpass-extension/blob/master/i
 
 Once the webtask has been deployed you will need the following endpoints to complete the setup for the custom social connection
 
+You can use the following url to get the below values
+```
+$curl https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/.well-known/openid-configuration
+```
+
+For Custom Social Connection
 ```
 authorizeUrl = 'https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/authorize'
 tokenURL = 'https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/token'
