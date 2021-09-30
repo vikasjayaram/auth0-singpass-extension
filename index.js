@@ -33,7 +33,7 @@ app.post('/token', async function (req, res) {
     const client_assertion = await generatePrivateKeyJWT(context.data);
     var options = {
         method: 'POST',
-        url: context.data.SINGPASS_TOKEN_ENDPOINT,
+        url: `${context.data.SINGPASS_ENVIRONMENT}/token`,
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         data: qs.stringify({
             grant_type: 'authorization_code',
@@ -57,11 +57,6 @@ app.post('/token', async function (req, res) {
     } catch (error) {
         if (error.response) {
             return res.status(error.response.status).send(error.response.data);
-        } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request);
         } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error', error.message);
@@ -70,6 +65,28 @@ app.post('/token', async function (req, res) {
     }
 });
 
+app.post('/verify', async function (req, res) {
+    try {
+        const { id_token } = response.body;
+        if (!id_token) {
+            return res.status(400).send('ID_TOKEN required');
+        }
+        const publicKey = await loadPublicKey(context.data);
+        const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
+            issuer: context.data.ISSUER,
+            audience: context.data.CLIENT_ID
+        })
+        return res.status(200).send(payload);
+    } catch (error) {
+        if (error.response) {
+            return res.status(error.response.status).send(error.response.data);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+            return res.status(500).send(error);
+        }
+    }
+})
 async function loadPrivateKey(config) {
     try {
         const response = await axios.get(config.RELYING_PARTY_JWKS_ENDPOINT);
@@ -83,7 +100,7 @@ async function loadPrivateKey(config) {
 
 async function loadPublicKey(config) {
     try {
-        const response = await axios.get(config.SINGPASS_JWKS_ENDPOINT);
+        const response = await axios.get(`${config.SINGPASS_ENVIRONMENT}/.well-known/keys`);
         const publicKey = await parseJwk(response.data.keys[0], config.SINGPASS_SIGNING_ALG);
         return publicKey;
     } catch (e) {
@@ -99,7 +116,7 @@ async function generatePrivateKeyJWT(config) {
         .setIssuedAt()
         .setIssuer(config.SINGPASS_CLIENT_ID)
         .setSubject(config.SINGPASS_CLIENT_ID)
-        .setAudience(config.SINGPASS_AUDIENCE)
+        .setAudience(config.SINGPASS_ENVIRONMENT)
         .setExpirationTime('2m') //The expiration time on or after which the JWT MUST NOT be accepted by NDI for processing. Additionally, NDI will not accept tokens with an exp longer than 2 minutes since iat. https://tools.ietf.org/html/rfc7519#section-4.1.4
         .setJti(uuid.v4())
         .sign(key);
