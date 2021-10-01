@@ -23,45 +23,58 @@ app.get('/.well-known/openid-configuration', (req, res) => {
 app.get('/authorize', (req, res) => {
     const context = req.webtaskContext;
     let nonce = crypto.randomBytes(16).toString('base64');
+    if (!req.query.client_id) {
+        return res.send(400, 'missing client_id');
+    }
+    if (context.data.AUTH0_CLIENT_ID !== req.query.client_id) {
+        return res.send(401, 'invalid client_id');
+    }
     var url = `https://${context.data.AUTH0_CUSTOM_DOMAIN}${req.url}&ndi_state=${req.query.state}&ndi_nonce=${nonce}&singpass=true`;
     res.redirect(url);
 });
 
 app.post('/token', async function (req, res) {
     const context = req.webtaskContext;
-    const { code, redirect_uri } = req.body;
-    const client_assertion = await generatePrivateKeyJWT(context.data);
-    var options = {
-        method: 'POST',
-        url: `${context.data.SINGPASS_ENVIRONMENT}/token`,
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        data: qs.stringify({
-            grant_type: 'authorization_code',
-            client_id: context.data.SINGPASS_CLIENT_ID,
-            client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-            client_assertion: client_assertion,
-            code: code,
-            redirect_uri: redirect_uri
-        })
-    };
-    try {
-        const response = await axios.request(options);
-        const { id_token } = response.data;
-        const publicKey = await loadPublicKey(context.data);
-        const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
-            issuer: context.data.ISSUER,
-            audience: context.data.CLIENT_ID
-        })
-        response.data.payload = payload;
-        return res.status(200).send(response.data);
-    } catch (error) {
-        if (error.response) {
-            return res.status(error.response.status).send(error.response.data);
-        } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-            return res.status(500).send(error);
+    const { clietn_id, client_secret, code, redirect_uri } = req.body;
+    if (!client_id || !client_secret) {
+        return res.send(400, 'missing client_id / client_secret');
+    }
+    if (context.data.AUTH0_CLIENT_ID === client_id && context.data.AUTH0_CLIENT_SECRET === client_secret) {
+        const client_assertion = await generatePrivateKeyJWT(context.data);
+        var options = {
+            method: 'POST',
+            url: `${context.data.SINGPASS_ENVIRONMENT}/token`,
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            data: qs.stringify({
+                grant_type: 'authorization_code',
+                client_id: context.data.SINGPASS_CLIENT_ID,
+                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                client_assertion: client_assertion,
+                code: code,
+                redirect_uri: redirect_uri
+            })
+        };
+        try {
+            const response = await axios.request(options);
+            const { id_token } = response.data;
+            const publicKey = await loadPublicKey(context.data);
+            const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
+                issuer: context.data.ISSUER,
+                audience: context.data.CLIENT_ID
+            })
+            response.data.payload = payload;
+            return res.status(200).send(response.data);
+        } catch (error) {
+            if (error.response) {
+                return res.status(error.response.status).send(error.response.data);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+                return res.status(500).send(error);
+            }
         }
+    } else {
+        return res.send(401, 'invalid request');
     }
 });
 
