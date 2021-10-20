@@ -22,20 +22,19 @@ app.get('/.well-known/openid-configuration', (req, res) => {
 });
 app.get('/authorize', (req, res) => {
     const context = req.webtaskContext;
-    let nonce = crypto.randomBytes(16).toString('base64');
     if (!req.query.client_id) {
         return res.send(400, 'missing client_id');
     }
     if (context.data.AUTH0_CLIENT_ID !== req.query.client_id) {
         return res.send(401, 'invalid client_id');
     }
-    var url = `https://${context.data.AUTH0_CUSTOM_DOMAIN}${req.url}&ndi_state=${req.query.state}&ndi_nonce=${nonce}&singpass=true`;
+    var url = `https://${context.data.AUTH0_CUSTOM_DOMAIN}${req.url}&ndi_state=${req.query.state}&ndi_nonce=${req.query.code_challenge}&singpass=true`;
     res.redirect(url);
 });
 
 app.post('/token', async function (req, res) {
     const context = req.webtaskContext;
-    const { client_id, client_secret, code, redirect_uri } = req.body;
+    const { client_id, client_secret, code, code_verifier, redirect_uri } = req.body;
     if (!client_id || !client_secret) {
         return res.send(400, 'missing client_id / client_secret');
     }
@@ -58,6 +57,8 @@ app.post('/token', async function (req, res) {
             const response = await axios.request(options);
             const { id_token } = response.data;
             const publicKey = await loadPublicKey(context.data);
+            const code_challenge = crypto.createHash('sha256').update(code_verifier).digest('base64');
+            console.log(`nonce expected: ${code_challenge}`);
             const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
                 issuer: context.data.ISSUER,
                 audience: context.data.CLIENT_ID

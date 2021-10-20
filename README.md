@@ -4,26 +4,6 @@
 
 This extension will expose endpoints you can use from your custom social connection to support Singpass token endpoint with client-assertion.
 
-## Deploy to Webtask.io
-
-```
-npm i -g wt-cli
-wt init
-wt create https://github.com/vikasjayaram/auth0-singpass-extension/blob/master/index.js \
-    --name auth0-singpass-extension \
-    --secret AUTH0_CUSTOM_DOMAIN="YOUR_AUTH0_CUSTOM_DOMAIN" \
-    --secret SINGPASS_CLIENT_ID="SINGPASS_CLIENT_ID" \
-    --secret SINGPASS_TOKEN_ENDPOINT="SINGPASS_TOKEN_ENDPOINT" \
-    --secret SINGPASS_ISSUER="SINGPASS_ISSUER" \
-    --secret SINGPASS_SIGNING_ALG="SINGPASS_SIGNING_ALG" \
-    --secret SINGPASS_JWKS_ENDPOINT="SINGPASS_JWKS_ENDPOINT" \
-    --secret RELYING_PARTY_JWKS_ENDPOINT="RELYING_PARTY_JWKS_ENDPOINT" \
-    --secret RELYING_PARTY_PRIVATE_KEY="RELYING_PARTY_PRIVATE_KEY" \
-    --secret RELYING_PARTY_KID="RELYING_PARTY_KID" \
-    --secret SINGPASS_CLIENT_ID="SINGPASS_CLIENT_ID" \
-    --secret SINGPASS_AUDIENCE="SINGPASS_AUDIENCE"
-    
-```
 
 ## Usage
 
@@ -31,7 +11,7 @@ Once the webtask has been deployed you will need the following endpoints to comp
 
 You can use the following url to get the below values
 ```
-$curl https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/.well-known/openid-configuration
+https://{TENANT}.{region}12.webtask.io/auth0-singpass-extension/.well-known/openid-configuration
 ```
 
 For Custom Social Connection
