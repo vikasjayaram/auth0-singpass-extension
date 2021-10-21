@@ -31,6 +31,7 @@
         "description": "Singpass Environment STG / PROD",
         "type": "select",
         "allowMultiple": false,
+        "default": "https://stg-id.singpass.gov.sg",
         "options": [
           {
             "value": "https://stg-id.singpass.gov.sg",
