@@ -1,7 +1,7 @@
 {
     "title": "Auth0 Singpass Proxy Extension",
     "name": "auth0-singpass-extension",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "author": "vikasjayaram",
     "useHashName": false,
     "description": "singpass proxy endpoint to support private key jwt / client assertion",
