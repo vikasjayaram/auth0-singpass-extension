@@ -57,11 +57,13 @@ app.post('/token', async function (req, res) {
             const response = await axios.request(options);
             const { id_token } = response.data;
             const publicKey = await loadPublicKey(context.data);
-            const code_challenge = crypto.createHash('sha256').update(code_verifier).digest('base64');
-            console.log(`nonce expected: ${code_challenge}`);
-            const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
+            const code_v = new TextEncoder().encode(code_verifier);
+            const code_v_s256 = crypto.createHash('sha256').update(code_v).digest('base64');
+            console.log(`nonce expected: ${code_v_s256}`);
+                const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
                 issuer: context.data.ISSUER,
-                audience: context.data.CLIENT_ID
+                audience: context.data.CLIENT_ID,
+                nonce: code_v_s256
             })
             response.data.payload = payload;
             return res.status(200).send(response.data);
