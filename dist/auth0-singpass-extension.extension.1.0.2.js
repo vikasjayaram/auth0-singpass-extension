@@ -126,6 +126,7 @@ app.get('/authorize', (req, res) => {
 
 app.post('/token', async function (req, res) {
     const context = req.webtaskContext;
+    console.log(JSON.stringify(context))
     const { client_id, client_secret, code, code_verifier, redirect_uri } = req.body;
     if (!client_id || !client_secret) {
         return res.send(400, 'missing client_id / client_secret');
