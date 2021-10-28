@@ -60,15 +60,17 @@ app.post('/token', async function (req, res) {
             const code_v = new TextEncoder().encode(code_verifier);
             const code_v_s256 = ccrypto.createHash('sha256').update(code_v).digest('base64').replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
             console.log(`nonce expected: ${code_v_s256}`);
-                const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
+            const { payload, protectedHeader } = await jwtVerify(id_token, publicKey, {
                 issuer: context.data.ISSUER,
                 audience: context.data.CLIENT_ID,
             });
             if (payload.nonce !== code_v_s256) {
-                return res.send('nonce mismatch');
+                return res.send(400, 'nonce mismatch');
+            } else {
+                response.data.payload = payload;
+                return res.status(200).send(response.data);
             }
-            response.data.payload = payload;
-            return res.status(200).send(response.data);
+
         } catch (error) {
             if (error.response) {
                 return res.status(error.response.status).send(error.response.data);
