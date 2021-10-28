@@ -1,7 +1,7 @@
 {
     "title": "Auth0 Singpass Proxy Extension",
     "name": "auth0-singpass-extension",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "author": "vikasjayaram",
     "useHashName": false,
     "description": "singpass proxy endpoint to support private key jwt / client assertion",
@@ -28,7 +28,7 @@
         "required": true
       },
       "SINGPASS_ENVIRONMENT": {
-        "description": "Singpass Environment STG / PROD",
+        "description": "Singpass Environment Staging",
         "type": "select",
         "allowMultiple": false,
         "default": "https://stg-id.singpass.gov.sg",
@@ -36,10 +36,6 @@
           {
             "value": "https://stg-id.singpass.gov.sg",
             "text": "Staging"
-          },
-          {
-            "value": "https://id.singpass.gov.sg",
-            "text": "Production"
           }
         ]
       },
